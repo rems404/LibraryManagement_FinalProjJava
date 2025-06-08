@@ -86,8 +86,7 @@ public class LibraryManagement extends JFrame {
 		JButton BtnBooks = new JButton("BOOKS");
 		BtnBooks.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				BooksManagement bm = new BooksManagement(); 
-				bm.setVisible(true);
+				new BooksManagement(LibraryManagement.this).setVisible(true);
 			}
 		});
 		BtnBooks.setBackground(new Color(40, 167, 69)); 
@@ -102,8 +101,7 @@ public class LibraryManagement extends JFrame {
 		JButton BtnMembers = new JButton("MEMBERS");
 		BtnMembers.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				MembersManagement mm = new MembersManagement(LibraryManagement.this); 
-				mm.setVisible(true);
+				new MembersManagement(LibraryManagement.this).setVisible(true);
 			}
 		});
 		BtnMembers.setBackground(new Color(40, 167, 69)); 
