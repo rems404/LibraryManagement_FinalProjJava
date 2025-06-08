@@ -297,6 +297,8 @@ public class MembersManagement extends JFrame {
 		TbxExtension.setText("");
 		TbxAddress.setText("");
 		TbxPhoneNo.setText("");
+		BtnAdd.setEnabled(true);
+		BtnUpdate.setEnabled(false);
 	}
 	
 	public void LoadMembers() {
@@ -455,6 +457,7 @@ public class MembersManagement extends JFrame {
 			if (affected > 0) {
 				JOptionPane.showMessageDialog(TblMembers, "Successfully deleted member!");
 				LoadMembers();
+				libMgmt.LoadBooksBorrowed();
 			} else {
 				JOptionPane.showMessageDialog(TblMembers, "Failed to delete member... Try again...");
 			}
@@ -484,8 +487,7 @@ public class MembersManagement extends JFrame {
 				JOptionPane.showMessageDialog(TblMembers, "Successfully updated: " + name);
 				clear();
 				LoadMembers();
-				BtnAdd.setEnabled(true);
-				BtnUpdate.setEnabled(false);
+				libMgmt.LoadBooksBorrowed();
 			} else {
 				JOptionPane.showMessageDialog(TblMembers, "Failed to update: " + name);
 			}
