@@ -44,26 +44,13 @@ public class BooksManagement extends JFrame {
 	private JButton BtnAdd;
 	private JButton BtnUpdate;
 	private int selectedBookId;
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					BooksManagement frame = new BooksManagement();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+	private LibraryManagement lm;
 
 	/**
 	 * Create the frame.
 	 */
-	public BooksManagement() {
+	public BooksManagement(LibraryManagement lm) {
+		this.lm = lm;
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 1000, 500);
 		setResizable(false);
@@ -276,20 +263,6 @@ public class BooksManagement extends JFrame {
 		}
 	}
 	
-	public void clear() {
-		TbxTitle.setText("");
-		TbxAuthor.setText("");
-		CbxCat.setSelectedIndex(-1);
-	}
-	
-	public void populate(String title, String author, String category) {
-		TbxTitle.setText(title);
-		TbxAuthor.setText(author);
-		CbxCat.setSelectedItem(category);
-		BtnAdd.setEnabled(false);
-		BtnUpdate.setEnabled(true);
-	}
-	
 	public void LoadBooks() {
 		model.setRowCount(0);
 		boolean found = false;
@@ -402,8 +375,7 @@ public class BooksManagement extends JFrame {
 				JOptionPane.showMessageDialog(TblBooks, "Information updated!");
 				clear();
 				LoadBooks();
-				BtnAdd.setEnabled(true);
-				BtnUpdate.setEnabled(false);
+				lm.LoadBooksBorrowed();
 			} else {
 				JOptionPane.showMessageDialog(TblBooks, "Failed to update... try again...");
 			}
@@ -424,12 +396,29 @@ public class BooksManagement extends JFrame {
 			if (affected > 0) {
 				JOptionPane.showMessageDialog(TblBooks, "Successfully deleted book!");
 				LoadBooks();
+				lm.LoadBooksBorrowed();
 			} else {
 				JOptionPane.showMessageDialog(TblBooks, " Failed to delete book... Try again...");
 			}
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(TblBooks, "Failed: " + e.getMessage());
 		}
+	}
+
+	public void clear() {
+		TbxTitle.setText("");
+		TbxAuthor.setText("");
+		CbxCat.setSelectedIndex(-1);
+		BtnAdd.setEnabled(true);
+		BtnUpdate.setEnabled(false);
+	}
+	
+	public void populate(String title, String author, String category) {
+		TbxTitle.setText(title);
+		TbxAuthor.setText(author);
+		CbxCat.setSelectedItem(category);
+		BtnAdd.setEnabled(false);
+		BtnUpdate.setEnabled(true);
 	}
 }
 
