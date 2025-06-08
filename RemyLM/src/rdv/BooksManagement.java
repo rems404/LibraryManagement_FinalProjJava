@@ -326,13 +326,14 @@ public class BooksManagement extends JFrame {
 	}
 	
 	public void AddNewBook(Book book) {
-		String isExisting = "SELECT * FROM books WHERE LOWER(title) = ?";
+		String isExisting = "SELECT * FROM books WHERE LOWER(title) = ? AND LOWER(author) = ?";
 		String addNew = "INSERT INTO books (title, author, category) VALUES (?, ?, ?)";
 
 		try {
 			Connection conn = DatabaseConn.getConn();
 			PreparedStatement existingPstmt = conn.prepareStatement(isExisting);
 			existingPstmt.setString(1, book.getTitle());
+			existingPstmt.setString(2, book.getAuthor());
 			ResultSet rs = existingPstmt.executeQuery();
 
 			if (rs.next()) {
